@@ -1,5 +1,4 @@
 package it.unibo.mvc;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,15 +9,12 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.FileReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -32,8 +28,8 @@ public class BadIOGUI {
 
     private static final String TITLE = "A very simple GUI application";
     private static final String PATH = System.getProperty("user.home")
-            + File.separator
-            + BadIOGUI.class.getSimpleName() + ".txt";
+        + File.separator
+        + BadIOGUI.class.getSimpleName() + ".txt";
     private static final int PROPORTION = 5;
     private final Random randomGenerator = new Random();
     private final JFrame frame = new JFrame(TITLE);
@@ -47,12 +43,12 @@ public class BadIOGUI {
         final JButton write = new JButton("Write on file");
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        // New box with buttons
         final JPanel boxPanel = new JPanel();
         boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.X_AXIS));
         boxPanel.add(write);
         canvas.add(boxPanel, BorderLayout.CENTER);
-
+        // Read operations
         final JButton read = new JButton("Read");
         boxPanel.add(read);
         /*
@@ -79,17 +75,17 @@ public class BadIOGUI {
 
         read.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 try {
-                    Files.readAllLines(Path.of(PATH), StandardCharsets.UTF_8).forEach(line -> {
-                        System.out.println(line);
-                    });
-                } catch (Exception err) {
-                    System.err.println(err);
+                    for (final var line: Files.readAllLines(Path.of(PATH), StandardCharsets.UTF_8)) {
+                        System.out.println(line);   //NOPMD: exercise uses this print
+                    }
+
+                } catch (IOException exception) {
+                    exception.printStackTrace(); // NOPMD: allowed as this is just an exercise
                 }
 
             }
-            
         });
     }
 
@@ -102,7 +98,6 @@ public class BadIOGUI {
          * issue). It is MUCH better than manually specify the size of a window
          * in pixel: it takes into account the current resolution.
          */
-        
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         final int sw = (int) screen.getWidth();
         final int sh = (int) screen.getHeight();
