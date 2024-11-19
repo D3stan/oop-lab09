@@ -3,6 +3,9 @@ package it.unibo.mvc;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +20,7 @@ public final class SimpleGUI {
     private static final int PROPORTION = 5;
     private static final String TITLE = "My first java GUI";
     private final JFrame frame = new JFrame(TITLE);
+    final Controller c = new Controller();
 
     public SimpleGUI() {
         final JPanel mainPanel = new JPanel();
@@ -33,7 +37,17 @@ public final class SimpleGUI {
         /*
          * Handlers
         */
-        
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    c.writeFile(textArea.getText());
+                } catch (IOException exception) {
+                    exception.getStackTrace();  // NOPMD: allowed as we need to check the ST
+                }
+            }
+            
+        });
     }
 
     private void display() {
@@ -62,7 +76,7 @@ public final class SimpleGUI {
     }
 
     public static void main(String[] args) {
-        // starts graphical application
+
         new SimpleGUI().display();
     }
 }

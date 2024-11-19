@@ -43,15 +43,12 @@ public class Controller {
      * @param toWrite string to write
      * @throws IOException if an error occours
      */
-    void writeFile(String toWrite) throws IOException {
-        if (this.currentFile.canWrite()) {/* 
-            try (PrintStream ps = new PrintStream(this.getCurrentFilePath(), StandardCharsets.UTF_8)) {
-                ps.print(toWrite);
-            }*/
-            Files.write(Path.of(this.getCurrentFilePath()), toWrite.getBytes(StandardCharsets.UTF_8));
-        } else {
-            throw new IOException("File cannot be wrote");
-        }
+    void writeFile(String toWrite) throws IOException {/* 
+        try (PrintStream ps = new PrintStream(this.getCurrentFilePath(), StandardCharsets.UTF_8)) {
+            ps.print(toWrite);
+        }*/
+        Files.write(Path.of(this.getCurrentFilePath()), toWrite.getBytes(StandardCharsets.UTF_8));
+        
     }
 
 }
