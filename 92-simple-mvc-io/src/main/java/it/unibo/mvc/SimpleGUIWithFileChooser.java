@@ -8,9 +8,12 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  * A very simple program using a graphical interface.
@@ -29,8 +32,21 @@ public final class SimpleGUIWithFileChooser {
         final JButton saveButton = new JButton("Save");
         mainPanel.add(saveButton, BorderLayout.SOUTH);
         // Text area
-        JTextArea textArea = new JTextArea();
+        final JTextArea textArea = new JTextArea();
         mainPanel.add(textArea, BorderLayout.CENTER);
+        // Browsing panel
+        final JPanel browser = new JPanel();
+        browser.setLayout(new BorderLayout());
+        mainPanel.add(browser, BorderLayout.NORTH);
+        // Text field for browsing
+        final JTextField textField = new JTextField();
+        textField.setEditable(false);
+        textField.setText(c.getCurrentFilePath());
+        browser.add(textField, BorderLayout.CENTER);
+        // Button for browsing
+        final JButton browserButton = new JButton("Browse...");
+        browser.add(browserButton, BorderLayout.LINE_END);
+
         // Frame base settings
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,6 +63,25 @@ public final class SimpleGUIWithFileChooser {
                 }
             }
             
+        });
+        browserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser chooser = new JFileChooser();
+                switch (chooser.showSaveDialog(browserButton)) {
+                    case JFileChooser.APPROVE_OPTION:
+                        c.setCurrentFile(chooser.getSelectedFile());
+                        textField.setText(chooser.getSelectedFile().getAbsolutePath());
+                        break;
+
+                    case JFileChooser.CANCEL_OPTION:
+                        break;
+
+                    default:
+                        JOptionPane.showMessageDialog(browserButton, "an error has occurred");
+                        break;
+                }
+            }
         });
     }
 
