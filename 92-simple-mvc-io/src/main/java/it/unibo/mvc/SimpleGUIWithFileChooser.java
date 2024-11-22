@@ -23,8 +23,11 @@ public final class SimpleGUIWithFileChooser {
     private static final int PROPORTION = 5;
     private static final String TITLE = "My first java GUI";
     private final JFrame frame = new JFrame(TITLE);
-    final Controller c = new Controller();
+    private final Controller c = new Controller();
 
+    /**
+     * GUI constructor.
+     */
     public SimpleGUIWithFileChooser() {
         final JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -55,19 +58,18 @@ public final class SimpleGUIWithFileChooser {
         */
         saveButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 try {
                     c.writeFile(textArea.getText());
                 } catch (IOException exception) {
-                    exception.getStackTrace();  // NOPMD: allowed as we need to check the ST
+                    exception.printStackTrace();  // NOPMD: allowed as we need to check the ST
                 }
             }
-            
         });
         browserButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser chooser = new JFileChooser();
+            public void actionPerformed(final ActionEvent e) {
+                final JFileChooser chooser = new JFileChooser();
                 switch (chooser.showSaveDialog(browserButton)) {
                     case JFileChooser.APPROVE_OPTION:
                         c.setCurrentFile(chooser.getSelectedFile());
@@ -110,7 +112,11 @@ public final class SimpleGUIWithFileChooser {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    /**
+     * 
+     * @param args ignored.
+     */
+    public static void main(final String[] args) {
 
         new SimpleGUIWithFileChooser().display();
     }

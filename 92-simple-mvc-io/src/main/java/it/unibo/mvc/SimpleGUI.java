@@ -20,8 +20,11 @@ public final class SimpleGUI {
     private static final int PROPORTION = 5;
     private static final String TITLE = "My first java GUI";
     private final JFrame frame = new JFrame(TITLE);
-    final Controller c = new Controller();
+    private final Controller c = new Controller();
 
+    /**
+     * GUI constructor.
+     */
     public SimpleGUI() {
         final JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -29,7 +32,7 @@ public final class SimpleGUI {
         final JButton saveButton = new JButton("Save");
         mainPanel.add(saveButton, BorderLayout.SOUTH);
         // Text area
-        JTextArea textArea = new JTextArea();
+        final JTextArea textArea = new JTextArea();
         mainPanel.add(textArea, BorderLayout.CENTER);
         // Frame base settings
         frame.setContentPane(mainPanel);
@@ -39,14 +42,13 @@ public final class SimpleGUI {
         */
         saveButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 try {
                     c.writeFile(textArea.getText());
                 } catch (IOException exception) {
-                    exception.getStackTrace();  // NOPMD: allowed as we need to check the ST
+                    exception.printStackTrace();  // NOPMD: allowed as we need to check the ST
                 }
             }
-            
         });
     }
 
@@ -75,7 +77,11 @@ public final class SimpleGUI {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    /**
+     * 
+     * @param args ignored
+     */
+    public static void main(final String[] args) {
 
         new SimpleGUI().display();
     }

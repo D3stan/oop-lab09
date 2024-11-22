@@ -12,10 +12,9 @@ import java.nio.file.Path;
  */
 public class Controller {
 
-    File currentFile = new File(System.getProperty("user.home") + System.getProperty("file.separator") + "output.txt");
-    
+    private File currentFile = new File(System.getProperty("user.home") + System.getProperty("file.separator") + "output.txt");
     /**
-     * Change current working file
+     * Change current working file.
      * @param currentFile
      */
     void setCurrentFile(final File currentFile) {
@@ -39,11 +38,11 @@ public class Controller {
     }
 
     /**
-     * Writes something in the current working file
+     * Writes something in the current working file.
      * @param toWrite string to write
      * @throws IOException if an error occours
      */
-    void writeFile(String toWrite) throws IOException {
+    void writeFile(final String toWrite) throws IOException {
         Files.write(Path.of(this.getCurrentFilePath()), toWrite.getBytes(StandardCharsets.UTF_8));
     }
 
