@@ -1,5 +1,6 @@
 package it.unibo.mvc;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,15 +10,21 @@ import java.util.Objects;
  */
 public final class SimpleController implements Controller {
 
-    List<String> history;
-    String nexString; 
+    private List<String> history = new LinkedList<>();
+    private String nexString; 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setNextString(String string) {
+    public void setNextString(final String string) {
         Objects.requireNonNull(string);
         this.nexString = string;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getNextString() {
         if (nexString == null) {
@@ -26,11 +33,17 @@ public final class SimpleController implements Controller {
         return this.nexString;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> getHistory() {
         return this.history;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void printCurrentString() {
         if (nexString == null) {
