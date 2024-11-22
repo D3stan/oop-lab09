@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public final class SimpleController implements Controller {
 
-    private List<String> history = new LinkedList<>();
+    private final List<String> history = new LinkedList<>();
     private String nexString; 
 
     /**
@@ -38,7 +38,7 @@ public final class SimpleController implements Controller {
      */
     @Override
     public List<String> getHistory() {
-        return this.history;
+        return List.copyOf(this.history);
     }
 
     /**
@@ -49,7 +49,7 @@ public final class SimpleController implements Controller {
         if (nexString == null) {
             throw new IllegalStateException("Current string unset!");
         }
-        System.out.println(nexString);
+        System.out.println(nexString);  // NOPMD needed for the exercise
         history.add(nexString);
     }
 

@@ -44,15 +44,15 @@ public final class SimpleGUI {
         // Handlers
         printButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 controller.setNextString(textField.getText());
                 controller.printCurrentString();
             }
         });
         historyButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                for (String printedString : controller.getHistory()) {
+            public void actionPerformed(final ActionEvent e) {
+                for (final String printedString : controller.getHistory()) {
                     textArea.append(printedString + "\n");
                 }
             }
